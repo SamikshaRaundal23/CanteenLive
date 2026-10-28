@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CanteenLive — Uncle Mode 👨‍🍳</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="app-header">
+      <a class="back-link" href="index.html" aria-label="Back to home">🏠</a>
+      <h1>👨‍🍳 Uncle Mode</h1>
+      <span class="live-dot" aria-hidden="true">live</span>
+      <span class="sr-only">Live updates enabled</span>
+    </header>
+    <p class="brand-tagline">Know before you queue. Order before it&rsquo;s gone.</p>
+
+    <div id="ls-warning" class="msg msg-error" hidden>
+      ⚠️ Storage is blocked in this browser, so data will not be saved or shared between tabs.
+    </div>
+
+    <!-- Tomorrow's Prep: simple prediction + 7-day chart + today's impact -->
+    <section class="card" aria-labelledby="prep-title">
+      <h2 id="prep-title"><span aria-hidden="true">🔮</span> Tomorrow&rsquo;s Prep</h2>
+      <div id="prep-list"></div>
+      <p class="impact" id="impact-line" role="status"></p>
+      <p class="note">📊 Estimate based on sample data.</p>
+    </section>
+
+    <!-- Add / Edit item -->
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title"><span aria-hidden="true">➕</span> <span id="form-title-text">Add today's item</span></h2>
+      <form id="item-form" novalidate>
+        <input type="hidden" id="edit-id">
+        <label for="f-name">🏷️ Name</label>
+        <input id="f-name" type="text" placeholder="Samosa" autocomplete="off" maxlength="40">
+        <label id="emoji-label">😊 Icon (tap one)</label>
+        <div role="group" aria-labelledby="emoji-label" id="emoji-picker" style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🥟">🥟</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🍔">🍔</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="☕">☕</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🍟">🍟</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🥤">🥤</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🍪">🍪</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="🍛">🍛</button>
+          <button type="button" class="icon-btn emoji-pick" data-emoji="❌" aria-label="No icon">❌</button>
+        </div>
+        <input type="hidden" id="f-emoji">
+        <div class="form-row">
+          <div>
+            <label for="f-qty">📦 Quantity (0–500)</label>
+            <input id="f-qty" type="number" inputmode="numeric" min="0" max="500" step="1" placeholder="30">
+          </div>
+          <div>
+            <label for="f-price">💰 Price ₹ (1–500)</label>
+            <input id="f-price" type="number" inputmode="decimal" min="1" max="500" step="0.5" placeholder="10">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">➕ Add item</button>
+          <button type="button" class="btn btn-ghost" id="cancel-edit-btn" hidden>❌ Cancel</button>
+        </div>
+        <p id="form-msg" class="msg" role="status" aria-live="polite" hidden></p>
+      </form>
+    </section>
+
+    <!-- Today's orders (from students), grouped by pickup slot -->
+    <section class="card" aria-labelledby="orders-title">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <h2 id="orders-title" style="flex:1;"><span aria-hidden="true">🧾</span> Today&rsquo;s orders by pickup time</h2>
+        <button type="button" class="btn btn-ghost" id="reset-btn" style="padding:8px 12px;min-height:44px;font-size:0.85rem;" title="Reload demo data">🧪 Reset demo</button>
+      </div>
+      <div id="orders-list" aria-live="polite"><p class="empty-state">No orders yet 🕐</p></div>
+    </section>
+
+    <!-- Item list -->
+    <section aria-labelledby="menu-title">
+      <h2 id="menu-title" style="font-size:1.15rem;">🍽️ Today's menu</h2>
+      <div id="items-list"></div>
+      <p id="empty-items" class="card empty-state" hidden>Nothing on the menu yet. Add your first item above! ⬆️</p>
+    </section>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="store.js"></script>
+  <script src="uncle.js"></script>
+</body>
+</html>

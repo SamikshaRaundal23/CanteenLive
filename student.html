@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CanteenLive — Student Mode 🎒</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="app-header">
+      <a class="back-link" href="index.html" aria-label="Back to home">🏠</a>
+      <h1>🎒 Student Mode</h1>
+      <span class="live-dot" aria-hidden="true">live</span>
+      <span class="sr-only">Stock updates live</span>
+    </header>
+    <p class="brand-tagline">Know before you queue. Order before it&rsquo;s gone.</p>
+
+    <div id="ls-warning" class="msg msg-error" hidden>
+      ⚠️ Storage is blocked in this browser, so orders will not be shared with the canteen tab.
+    </div>
+
+    <!-- Nickname: saved as you type, used for every order -->
+    <section class="card" aria-labelledby="nick-title">
+      <h2 id="nick-title"><span aria-hidden="true">🙂</span> Your nickname</h2>
+      <label for="nickname" class="sr-only">Nickname</label>
+      <input id="nickname" type="text" placeholder="e.g. Rahul" autocomplete="nickname" maxlength="24">
+      <p id="nick-hint" style="margin:6px 0 0;color:var(--muted);font-size:0.85rem;">
+        Saved on this phone. The uncle sees it on his token list.
+      </p>
+    </section>
+
+    <!-- Pickup time slot: required before ordering; rush meter per slot -->
+    <section class="card" aria-labelledby="slot-title">
+      <h2 id="slot-title"><span aria-hidden="true">🕐</span> Pickup time</h2>
+      <p class="slot-hint" id="slot-hint" role="status">Tap a time slot below to choose when you&rsquo;ll pick up.</p>
+      <div class="rush-legend" aria-hidden="true">
+        <span><span class="dot dot-green"></span>0–4 calm</span>
+        <span><span class="dot dot-orange"></span>5–8 busy</span>
+        <span><span class="dot dot-red"></span>9–10 full</span>
+      </div>
+      <div class="slots" id="slot-grid" role="group" aria-label="Pickup time slots"></div>
+      <p class="sr-only" id="slot-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- Latest token, shown right after ordering -->
+    <section id="token-card" class="card token-card" role="status" aria-live="assertive" hidden>
+      <div style="font-size:2.4rem;" aria-hidden="true">🎉</div>
+      <p style="margin:0;font-weight:700;">Your token number</p>
+      <div class="token-number" id="token-number">T-001</div>
+      <p id="token-slot" class="token-slot" style="margin:0;color:var(--muted);font-weight:700;"></p>
+      <p id="token-detail" style="margin:6px 0 0;color:var(--muted);font-weight:700;"></p>
+      <button type="button" class="btn btn-ghost" id="token-dismiss-btn" style="margin-top:10px;">👍 OK</button>
+    </section>
+
+    <!-- Live menu -->
+    <section aria-labelledby="menu-title">
+      <h2 id="menu-title" style="font-size:1.15rem;">🍽️ Live stock — tap to pre-order</h2>
+      <div id="items-list"></div>
+      <p id="empty-items" class="card empty-state" hidden>Nothing on the menu right now. Check back soon! ⏳</p>
+    </section>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="store.js"></script>
+  <script src="student.js"></script>
+</body>
+</html>
