@@ -152,3 +152,4 @@ voice input in the local language for the uncle · real sales history for better
 
 > This project was built by me during PromptWars x KickToTech 2026 using AI tools openly.
 > I understand the code and can explain it.
+> Live demo: coming soon
